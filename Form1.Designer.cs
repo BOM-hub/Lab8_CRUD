@@ -22,6 +22,7 @@ partial class Form1
     private System.Windows.Forms.Button buttonDelete = null!;
     private System.Windows.Forms.Button buttonClear = null!;
     private System.Windows.Forms.Button buttonCancel = null!;
+    private System.Windows.Forms.Button buttonExportCsv = null!;
     private System.Windows.Forms.Label labelStatus = null!;
 
     protected override void Dispose(bool disposing)
@@ -52,6 +53,7 @@ partial class Form1
         buttonDelete = new System.Windows.Forms.Button();
         buttonClear = new System.Windows.Forms.Button();
         buttonCancel = new System.Windows.Forms.Button();
+        buttonExportCsv = new System.Windows.Forms.Button();
         labelStatus = new System.Windows.Forms.Label();
 
         ((System.ComponentModel.ISupportInitialize)dataGridViewStudents).BeginInit();
@@ -112,6 +114,7 @@ partial class Form1
         groupBoxEdit.Controls.Add(buttonDelete);
         groupBoxEdit.Controls.Add(buttonClear);
         groupBoxEdit.Controls.Add(buttonCancel);
+        groupBoxEdit.Controls.Add(buttonExportCsv);
         groupBoxEdit.Font = new System.Drawing.Font("Segoe UI", 9.5F);
         groupBoxEdit.Location = new System.Drawing.Point(16, 352);
         groupBoxEdit.Name = "groupBoxEdit";
@@ -223,6 +226,15 @@ partial class Form1
         buttonCancel.Text = "Отмена";
         buttonCancel.UseVisualStyleBackColor = true;
         buttonCancel.Click += buttonCancel_Click;
+
+        // buttonExportCsv
+        buttonExportCsv.Location = new System.Drawing.Point(778, 118);
+        buttonExportCsv.Name = "buttonExportCsv";
+        buttonExportCsv.Size = new System.Drawing.Size(154, 34);
+        buttonExportCsv.TabIndex = 9;
+        buttonExportCsv.Text = "Экспорт в CSV";
+        buttonExportCsv.UseVisualStyleBackColor = true;
+        buttonExportCsv.Click += buttonExportCsv_Click;
 
         // labelStatus
         labelStatus.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;

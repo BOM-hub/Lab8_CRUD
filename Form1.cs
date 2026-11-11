@@ -1,6 +1,8 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Lab8_CRUD
@@ -345,6 +347,41 @@ namespace Lab8_CRUD
         {
             textBoxSearch.Clear();
             LoadStudents("Изменения отменены");
+        }
+
+        private void buttonExportCsv_Click(object? sender, EventArgs e)
+        {
+            using SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "CSV файлы (*.csv)|*.csv",
+                FileName = "students_export.csv",
+                Title = "Экспорт таблицы студентов в CSV"
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToCsv(dialog.FileName);
+            }
+        }
+
+        public void ExportToCsv(string filePath)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("Id;FullName;Age;GroupName;AverageGrade");
+
+            foreach (DataGridViewRow row in dataGridViewStudents.Rows)
+            {
+                if (row.IsNewRow) continue;
+                sb.AppendLine(string.Join(";",
+                    row.Cells["Id"].Value,
+                    row.Cells["FullName"].Value,
+                    row.Cells["Age"].Value,
+                    row.Cells["GroupName"].Value,
+                    Convert.ToDouble(row.Cells["AverageGrade"].Value).ToString("0.00")));
+            }
+
+            File.WriteAllText(filePath, sb.ToString(), new UTF8Encoding(true));
+            labelStatus.Text = $"Экспортировано в {Path.GetFileName(filePath)} ({dataGridViewStudents.Rows.Count} зап.) | Всего студентов: {_studentsTable.Rows.Count}";
         }
     }
 }
