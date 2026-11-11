@@ -5,6 +5,8 @@ partial class Form1
 {
     private System.ComponentModel.IContainer? components = null;
 
+    private System.Windows.Forms.Label labelSearch = null!;
+    private System.Windows.Forms.TextBox textBoxSearch = null!;
     private System.Windows.Forms.DataGridView dataGridViewStudents = null!;
     private System.Windows.Forms.GroupBox groupBoxEdit = null!;
     private System.Windows.Forms.Label labelName = null!;
@@ -33,6 +35,8 @@ partial class Form1
 
     private void InitializeComponent()
     {
+        labelSearch = new System.Windows.Forms.Label();
+        textBoxSearch = new System.Windows.Forms.TextBox();
         dataGridViewStudents = new System.Windows.Forms.DataGridView();
         groupBoxEdit = new System.Windows.Forms.GroupBox();
         labelName = new System.Windows.Forms.Label();
@@ -56,6 +60,22 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)numericGrade).BeginInit();
         SuspendLayout();
 
+        // labelSearch
+        labelSearch.AutoSize = true;
+        labelSearch.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+        labelSearch.Location = new System.Drawing.Point(16, 17);
+        labelSearch.Name = "labelSearch";
+        labelSearch.Size = new System.Drawing.Size(102, 17);
+        labelSearch.Text = "Поиск по ФИО:";
+
+        // textBoxSearch
+        textBoxSearch.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+        textBoxSearch.Location = new System.Drawing.Point(125, 14);
+        textBoxSearch.Name = "textBoxSearch";
+        textBoxSearch.Size = new System.Drawing.Size(360, 24);
+        textBoxSearch.TabIndex = 0;
+        textBoxSearch.TextChanged += textBoxSearch_TextChanged;
+
         // dataGridViewStudents
         dataGridViewStudents.AllowUserToAddRows = false;
         dataGridViewStudents.Anchor = System.Windows.Forms.AnchorStyles.Top
@@ -66,12 +86,12 @@ partial class Form1
         dataGridViewStudents.BackgroundColor = System.Drawing.SystemColors.Window;
         dataGridViewStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         dataGridViewStudents.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-        dataGridViewStudents.Location = new System.Drawing.Point(16, 16);
+        dataGridViewStudents.Location = new System.Drawing.Point(16, 46);
         dataGridViewStudents.MultiSelect = false;
         dataGridViewStudents.Name = "dataGridViewStudents";
         dataGridViewStudents.ReadOnly = true;
         dataGridViewStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-        dataGridViewStudents.Size = new System.Drawing.Size(950, 325);
+        dataGridViewStudents.Size = new System.Drawing.Size(950, 295);
         dataGridViewStudents.TabIndex = 0;
         dataGridViewStudents.SelectionChanged += dataGridViewStudents_SelectionChanged;
 
@@ -219,6 +239,8 @@ partial class Form1
         ClientSize = new System.Drawing.Size(984, 561);
         Controls.Add(labelStatus);
         Controls.Add(groupBoxEdit);
+        Controls.Add(textBoxSearch);
+        Controls.Add(labelSearch);
         Controls.Add(dataGridViewStudents);
         Name = "Form1";
         Size = new System.Drawing.Size(1000, 600);

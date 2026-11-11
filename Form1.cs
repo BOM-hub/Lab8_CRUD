@@ -10,6 +10,7 @@ namespace Lab8_CRUD
         private readonly string _connectionString =
             @"Server=(localdb)\MSSQLLocalDB;Database=StudentDB;Integrated Security=True;";
 
+        private DataTable _studentsTable = new DataTable();
         private int _selectedId = -1;
         private bool _isLoading = false;
 
@@ -32,13 +33,13 @@ namespace Lab8_CRUD
                 {
                     string sql = "SELECT Id, FullName, Age, GroupName, AverageGrade FROM Students ORDER BY Id";
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, connection);
-                    DataTable table = new DataTable();
-                    adapter.Fill(table);
+                    _studentsTable = new DataTable();
+                    adapter.Fill(_studentsTable);
 
-                    dataGridViewStudents.DataSource = table;
+                    dataGridViewStudents.DataSource = _studentsTable.DefaultView;
                     ConfigureColumns();
 
-                    labelStatus.Text = $"{statusPrefix} | Всего студентов: {table.Rows.Count}";
+                    labelStatus.Text = $"{statusPrefix} | Всего студентов: {_studentsTable.Rows.Count}";
                 }
             }
             catch (SqlException ex)
@@ -333,8 +334,16 @@ namespace Lab8_CRUD
             labelStatus.Text = $"Поля очищены | Всего студентов: {dataGridViewStudents.Rows.Count}";
         }
 
+        private void textBoxSearch_TextChanged(object? sender, EventArgs e)
+        {
+            string q = textBoxSearch.Text.Trim().Replace("'", "''").Replace("[", "[[]").Replace("%", "[%]").Replace("*", "[*]");
+            _studentsTable.DefaultView.RowFilter = string.IsNullOrEmpty(q) ? string.Empty : $"FullName LIKE '%{q}%'";
+            labelStatus.Text = $"Найдено: {_studentsTable.DefaultView.Count} | Всего студентов: {_studentsTable.Rows.Count}";
+        }
+
         private void buttonCancel_Click(object? sender, EventArgs e)
         {
+            textBoxSearch.Clear();
             LoadStudents("Изменения отменены");
         }
     }
